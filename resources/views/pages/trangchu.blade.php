@@ -3,7 +3,7 @@
 <!-- Công ty hàng đầu -->
 <section class="bnrs container home__featured-companies">
   <div id="ads_TOP_COMPANIES_HORISONTAL" class="row">
-    <h1 align="center" style="padding: 50px;">Các Công Ty Hàng Đầu</h1>
+    <h1 align="center" style="padding: 50px;">Các Công ty</h1>
     <div class="animated fadeIn">
 
       <div class="col-md-2 col-sm-4 col-xs-6">

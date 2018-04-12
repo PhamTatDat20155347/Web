@@ -69,15 +69,49 @@
             </li>
           </ul>
           <ul class="nav navbar-nav navbar-right float-right">
-                <li class="left"><a href="post-job.html"><i class="ti-pencil-alt"></i> NHÀ TUYỂN DỤNG</a></li>
-                @if(!Auth::user())
-                  <li class="right"><a href="dangnhap"><i class="ti-lock"></i>  Đăng nhập</a></li>
-                  <li class="right"><a href="dangky"><i class="ti-lock"></i>  Đăng ký</a></li>
-                @else
-                <li class="right"><a href="hosocanhan"><i class="ti-lock"></i>  {{Auth::user()->username}}</a></li>
-                  {{-- <li class="right"><a href="hosocanhan">{{Auth::user()->usename}}</a></li> --}}
-                  <li class="right"><a href="dangxuat"><i class="ti-lock"></i> Đăng xuất</a></li>
-                @endif
+            <li class="left"><a href="post-job.html"><i class="ti-pencil-alt"></i> NHÀ TUYỂN DỤNG</a></li>
+            @if(!Auth::user())
+            <li class="right"><a href="dangnhap"><i class="ti-lock"></i>  Đăng nhập</a></li>
+            <li class="right"><a href="dangky"><i class="ti-lock"></i>  Đăng ký</a></li>
+            @else
+                <li class="dropdown dropdown-popover-theme user-account dropdown-with-icon">
+                  <li class="right"><a href="hosocanhan"><i class="ti-user"></i>  {{Auth::user()->username}}</a>
+                    <ul class="dropdown-menu animated fadeIn" style="background-color: #414141; width: 250px;">
+                      <li class="menu-header">
+                        Quản Lý Nghề Nghiệp
+                      </li>
+                      <li>
+                        <?php $cv= Auth::user()->cv; ?>
+                        <a href="hosoxinviec/{{$cv->id}}">
+                          <i class="fa fa-fw fa-lg fa-tachometer"></i>
+                          Quản Lý Hồ Sơ
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/quan-ly-nghe-nghiep/viec-lam-cua-toi">
+                          <i class="fa fa-fw fa-lg fa-heart"></i>
+                          Việc Làm Của Tôi
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/quan-ly-nghe-nghiep/thong-bao-viec-lam">
+                          <i class="fa fa-fw fa-lg fa-envelope"></i>
+                          Thông Báo Việc Làm
+                        </a>
+                      </li>
+                      <li class="with-separator">
+                        <a class="no-icon" href="hosocanhan">
+                          Tài Khoản
+                        </a>
+                      </li>
+                      <li>
+                        <a class="no-icon" href="dangxuat">
+                          Thoát
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                  @endif
           </ul>
         </div> 
       </div>

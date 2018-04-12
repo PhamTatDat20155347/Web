@@ -12,6 +12,6 @@ class Cv extends Model
 		return $this->belongsTo('App\User','users_id','id');
 	}
 	public function recruitment(){
-		return $this->belongsTo('App\Recruitment','cv_id','id');
+		return $this->hasMany('App\Recruitment','cv_id','id');
 	}
 }

@@ -72,8 +72,8 @@
                         <input class="form-control" name="address" placeholder="nhập address" required="" />
                     </div>
                     <div class="form-group">
-                        <label>Cv_Upload</label>
-                        <input type="file" class="form-control" name="upload"/>
+                        <label>Quyền</label>
+                        <input type="text" class="form-control" name="quyen" placeholder="quyền" required="" />
                     </div>
                     <button type="submit" class="btn btn-default">Thêm</button>
                     <button type="reset" class="btn btn-default">Reset</button>

@@ -22,7 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('email');
             $table->string('phone');
             $table->string('address');
-            $table->string('cv_upload');
+            $table->integer('quyen');
             $table->rememberToken();
             $table->timestamps();
         });

@@ -27,9 +27,15 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
     public function cv(){
-        return $this->hasMany('App\Cv','users_id','id');
+        return $this->hasOne('App\Cv','users_id','id');
     }
     public function recruitment(){
         return $this->hasManyThrough('App\Recruitment','App\Cv','users_id','cv_id','id');
+    }
+    public function post(){
+        return $this->hasMany('App\Post','users_id','id');
+    }
+    public function recruitmentNTD(){
+        return $this->hasManyThrough('app\Recruitment','App\Post','users_id','post_id','id');
     }
 }

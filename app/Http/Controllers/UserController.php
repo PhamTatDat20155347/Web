@@ -44,25 +44,25 @@ class UserController extends Controller
 		$user->fullname = $request->fullname;
 		$user->phone = $request->phone;
 		$user->address=$request->address;
-
-		if($request->hasFile('upload')){
-			$file = $request ->file('upload');
-			$duoi = $file->getClientOriginalExtension();
-			if($duoi != 'jpg' && $duoi != 'png' && $duoi != 'JPG'){
-				$request->session()->flash('loi', 'Bạn chỉ được chọn file jpg,png');
-				return redirect('admin/user/them');
-			}
-			$name = $file->getClientOriginalName();
-			$cv_upload = str_random(4)."_".$name;
-			while(file_exists("upload/cv/".$cv_upload)){
-				$cv_upload = str_random(4)."_".$name;
-			}
-    		//echo $Hinh;
-			$file->move("upload/cv",$cv_upload);
-			$user->cv_upload = $cv_upload;
-		}else{
-			$user->cv_upload="";
-		}
+		$user->quyen = $request->quyen;
+		// if($request->hasFile('upload')){
+		// 	$file = $request ->file('upload');
+		// 	$duoi = $file->getClientOriginalExtension();
+		// 	if($duoi != 'jpg' && $duoi != 'png' && $duoi != 'JPG'){
+		// 		$request->session()->flash('loi', 'Bạn chỉ được chọn file jpg,png');
+		// 		return redirect('admin/user/them');
+		// 	}
+		// 	$name = $file->getClientOriginalName();
+		// 	$cv_upload = str_random(4)."_".$name;
+		// 	while(file_exists("upload/cv/".$cv_upload)){
+		// 		$cv_upload = str_random(4)."_".$name;
+		// 	}
+  //   		//echo $Hinh;
+		// 	$file->move("upload/cv",$cv_upload);
+		// 	$user->cv_upload = $cv_upload;
+		// }else{
+		// 	$user->cv_upload="";
+		// }
 
 
 		$user->save();
@@ -109,28 +109,28 @@ class UserController extends Controller
 				]);
 			$user->password = bcrypt($request->password);
 		}
+		$user->quyen = $request->quyen;
 
-
-		if($request->hasFile('upload')){
-			$file = $request ->file('upload');
-			$duoi = $file->getClientOriginalExtension();
-			if($duoi != 'jpg' && $duoi != 'png' && $duoi != 'JPG'){
-				$request->session()->flash('loi', 'Bạn chỉ được chọn file jpg,png');
-				return redirect('admin/user/them');
-			}
-			$name = $file->getClientOriginalName();
-			$cv_upload = str_random(4)."_".$name;
-			while(file_exists("upload/cv/".$cv_upload)){
-				$cv_upload = str_random(4)."_".$name;
-			}
-    		//echo $Hinh;
-    		unlink("upload/cv/".$user->cv_upload);
-			$file->move("upload/cv",$cv_upload);
+		// if($request->hasFile('upload')){
+		// 	$file = $request ->file('upload');
+		// 	$duoi = $file->getClientOriginalExtension();
+		// 	if($duoi != 'jpg' && $duoi != 'png' && $duoi != 'JPG'){
+		// 		$request->session()->flash('loi', 'Bạn chỉ được chọn file jpg,png');
+		// 		return redirect('admin/user/them');
+		// 	}
+		// 	$name = $file->getClientOriginalName();
+		// 	$cv_upload = str_random(4)."_".$name;
+		// 	while(file_exists("upload/cv/".$cv_upload)){
+		// 		$cv_upload = str_random(4)."_".$name;
+		// 	}
+  //   		//echo $Hinh;
+  //   		unlink("upload/cv/".$user->cv_upload);
+		// 	$file->move("upload/cv",$cv_upload);
 			
-			$user->cv_upload = $cv_upload;
-		}else{
-			$user->cv_upload="";
-		}
+		// 	$user->cv_upload = $cv_upload;
+		// }else{
+		// 	$user->cv_upload="";
+		// }
 
 		$user->save();
 		$request->session()->flash('thongbao', 'Bạn đã sửa thành công!');

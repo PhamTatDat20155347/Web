@@ -9,7 +9,7 @@ class Recruitment extends Model
     //
 	protected $table = 'recruitment';
 	public function cv(){
-		return $this->hasMany('App\Cv','cv_id','id');
+		return $this->belongsTo('App\Cv','cv_id','id');
 	}
 	public function post(){
 		return $this->belongsTo('App\Post','post_id','id');

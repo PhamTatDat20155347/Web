@@ -35,7 +35,7 @@
   <link rel="stylesheet" href="css/main.css" type="text/css">
   <!-- Responsive CSS Styles -->
   <link rel="stylesheet" href="css/responsive.css" type="text/css">
-
+<base href="{{asset('')}}">
   <!-- Color CSS Styles  -->
   <link rel="stylesheet" href="css/custom-components.css" type="text/css">
   <link rel="stylesheet" type="text/css" href="css/colors/red.css" media="screen" />
@@ -56,9 +56,13 @@
       @include('layout.footer')
       <!-- end Footer -->
       <!-- jQuery -->
-      <script src="js/jquery.js"></script>
+
       <!-- Bootstrap Core JavaScript -->
       <!-- Main JS  -->
+          <script src="js/jquery.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/my.js"></script>
       <script type="text/javascript" src="js/jquery-min.js"></script>      
       <script type="text/javascript" src="js/bootstrap.min.js"></script>    
       <script type="text/javascript" src="js/material.min.js"></script>

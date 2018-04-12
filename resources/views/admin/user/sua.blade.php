@@ -86,8 +86,8 @@
                         <input class="form-control" name="address" value="{{$user->address}}" required="" />
                     </div>
                     <div class="form-group">
-                        <label>Cv_Upload</label>
-                        <input type="file" class="form-control" name="upload"/>
+                        <label>Quyền</label>
+                        <input type="text" readonly="" class="form-control" name="quyen" value="{{$user->quyen}}" />
                     </div>
                     <button type="submit" class="btn btn-default">Sửa</button>
                     <button type="reset" class="btn btn-default">Reset</button>

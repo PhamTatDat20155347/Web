@@ -24,7 +24,7 @@
                                 <th>email</th>
                                 <th>phone</th>
                                 <th>adress</th>
-                                <th>cv_upload</th>
+                                <th>quyen</th>
                                 <th>Delete</th>
                                 <th>Edit</th>
                             </tr>
@@ -47,7 +47,7 @@
                                 <td>{{$u->email}}</td>
                                 <td>{{$u->phone}}</td>
                                 <td>{{$u->address}}</td>
-                                <td>{{$u->cv_upload}}</td>
+                                <td>{{$u->quyen}}</td>
                                 <td class="center"><i class="fa fa-trash-o  fa-fw"></i><a onclick="xoa()" href="admin/user/xoa/{{$u->id}}"> Delete</a></td>
                                 <td class="center"><i class="fa fa-pencil fa-fw"></i> <a  href="admin/user/sua/{{$u->id}}">Edit</a></td>
                             </tr>

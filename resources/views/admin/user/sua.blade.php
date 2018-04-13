@@ -50,40 +50,8 @@
                         <input  class="form-control" name="fullname" value="{{$user->fullname}}" required="" />
                     </div>
                     <div class="form-group">
-                        <label>Giới Tính</label>
-                        <label class="radio-inline">
-                            <input name="gender" value="0" checked="" type="radio"
-                            @if($user->gender==0)
-                            {{'checked'}}
-                            @endif
-                            >Nam
-                        </label>
-                        <label class="radio-inline">
-                            <input name="gender" value="1" type="radio"
-                            @if($user->gender==1)
-                            {{'checked'}}
-                            @endif
-                            >Nữ
-                        </label>
-                        <label class="radio-inline">
-                            <input type="radio" name="gender" value="2"
-                            @if($user->gender==2)
-                            {{'checked'}}
-                            @endif
-                            >Giới tính khác
-                        </label>
-                    </div>
-                    <div class="form-group">
                         <label>Email</label>
                         <input type="email" class="form-control" name="email" value={{$user->email}} required="" />
-                    </div>
-                    <div class="form-group">
-                        <label>Điện thoại</label>
-                        <input type="number" class="form-control" name="phone" value="{{$user->phone}}" required="" />
-                    </div>
-                    <div class="form-group">
-                        <label>Địa chỉ</label>
-                        <input class="form-control" name="address" value="{{$user->address}}" required="" />
                     </div>
                     <div class="form-group">
                         <label>Quyền</label>

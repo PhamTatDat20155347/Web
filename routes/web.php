@@ -29,14 +29,15 @@ Route::get('dangxuat','PagesController@dangxuat');
 //dang ký
 Route::get('dangky','PagesController@getdangky');
 Route::post('dangky','PagesController@postdangky');
-//Route::get('dangkyhoso','PagesController@getdangkyhoso');
+
+Route::post('themhoso','PagesController@posttaohoso')->name('themhoso');
 // quản lí thông tin cá nhân
 Route::get('hosocanhan','PagesController@getHosocanhan');
 Route::post('hosocanhan','PagesController@postHosocanhan');
 
 // hồ sơ -cv
-Route::get('hosoxinviec/{id}','PagesController@getHosoxinviec');
-Route::post('suahoso/{id}','PagesController@suaHoso');
+Route::get('hosoxinviec','PagesController@getHosoxinviec');
+Route::post('hosoxinviec','PagesController@postHosoxinviec');
 
 Route::get('test','PagesController@getTest');
 // đăng nhập

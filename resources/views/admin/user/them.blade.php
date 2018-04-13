@@ -48,28 +48,8 @@
                         <input  class="form-control" name="fullname" placeholder="nhập fullname" required="" />
                     </div>
                     <div class="form-group">
-                        <label>Giới Tính</label>
-                        <label class="radio-inline">
-                            <input name="gender" value="0" checked="" type="radio">Nam
-                        </label>
-                        <label class="radio-inline">
-                            <input name="gender" value="1" type="radio">Nữ
-                        </label>
-                        <label class="radio-inline">
-                            <input type="radio" name="gender" value="2">Khác
-                        </label>
-                    </div>
-                    <div class="form-group">
                         <label>Email</label>
                         <input type="email" class="form-control" name="email" placeholder="nhập email" required="" />
-                    </div>
-                    <div class="form-group">
-                        <label>Điện thoại</label>
-                        <input type="number" class="form-control" name="phone" placeholder="nhập phone" required="" />
-                    </div>
-                    <div class="form-group">
-                        <label>Địa chỉ</label>
-                        <input class="form-control" name="address" placeholder="nhập address" required="" />
                     </div>
                     <div class="form-group">
                         <label>Quyền</label>

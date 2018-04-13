@@ -82,7 +82,7 @@
                       </li>
                       <li>
                         <?php $cv= Auth::user()->cv; ?>
-                        <a href="hosoxinviec/{{$cv->id}}">
+                        <a href="hosoxinviec">
                           <i class="fa fa-fw fa-lg fa-tachometer"></i>
                           Quản Lý Hồ Sơ
                         </a>

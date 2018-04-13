@@ -68,7 +68,7 @@ class PagesController extends Controller
 				'username' => 'required|min:3',
 				'email' => 'required|email|unique:users,email',
 				'password'=>'required|min:3|max:32',
-				'passwordAgain' =>'required|same:password'
+				'passwordAgain' =>'required|same:password',
 			],
 			[
 				'username.required' => 'Bạn chưa nhập tên người dùng',
@@ -87,23 +87,67 @@ class PagesController extends Controller
 		$user->email = $request->email;
 		$user->password = bcrypt($request->password);
 		$user->fullname = $request->fullname;
-		$user->gender=$request->gender;
-		$user->phone= $request->phone;
-		$user->address=$request->address;
-		$user->quyen = "User";
 		$user->quyen = 0;
-
-
 		$user->save();
-		$request->session()->flash('thongbao', 'Bạn đã đăng ký thành công!');
-		return redirect('dangky');
-		return view('pages.dangky');
-	}
 
+		$cv = new Cv;
+		$cv->users_id = $user->id;
+		$cv->email= $user->email;
+		$cv->fullname = $user->fullname;
+		$cv->save();
+
+		$userid = User::find($user->id);
+
+
+		$request->session()->flash('thongbao', 'Bạn đã đăng ký thành công! Bây giờ hãy hoàn thành đầy đủ thông tin cá nhân');
+
+		$data = ['email'=>$request->email,'password'=>$request->password];
+        // kiểm tra đăng nhập
+		Auth::attempt($data);
+		return view('pages.taohoso',['userid'=>$userid]);
+	}
+	public function posttaohoso(Request $request){
+
+		$cv = Auth::user()->cv;
+		$cv->fullname=$request->fullname;
+		$cv->birthday=$request->birthday;
+		$cv->email=$request->email;
+		$cv->phone=$request->phone;
+		$cv->education=$request->education;
+		$cv->gender=$request->gender;
+		$cv->job_position=$request->job_position;
+		$cv->information=$request->infomation;
+		$cv->skill=$request->skill;
+		$cv->experience=$request->experience;
+		$cv->project=$request->project;
+		$cv->status=$request->status;
+
+		if($request->hasFile('Hinh')){
+			$file = $request ->file('Hinh');
+			$duoi = $file->getClientOriginalExtension();
+			if($duoi != 'jpg' && $duoi != 'png' && $duoi != 'JPG'){
+				$request->session()->flash('loi', 'Bạn chỉ được chọn file jpg,png');
+				return redirect('pages.dangky');
+			}
+			$name = $file->getClientOriginalName();
+			$Hinh = str_random(4)."_".$name;
+			while(file_exists("upload/cv/".$Hinh)){
+				$Hinh = str_random(4)."_".$name;
+			}
+    		//echo $Hinh;
+			$file->move("upload/cv",$Hinh);
+			$cv->Hinh = $Hinh;
+		}else{
+			$cv->Hinh="";
+		}
+
+
+		$cv->save();
+		return redirect('trangchu');
+	}
 	public function getHosocanhan(){
 		return view('pages.hosocanhan');
 	}
-
 	public function postHosocanhan(Request $request){
 		$this->validate($request,
 			[
@@ -116,9 +160,6 @@ class PagesController extends Controller
 		$user = Auth::user();
 		$user->username = $request->username;
 		$user->fullname= $request->fullname;
-		$user->gender= $request->gender;
-		$user->phone= $request->phone;
-		$user->address= $request->address;
 
 		if($request->checkpassword == "on"){
 			$this->validate($request,
@@ -141,21 +182,48 @@ class PagesController extends Controller
 		return redirect('hosocanhan');
 	}
 
-	public function getHoso($id){
-		$cv = Cv::find($id);
-		return view('pages.hoso',['cv'=>$cv]);
-	}
-
-	public function getHosoxinviec($id){
-		$cv = Cv::find($id);
-		return view('pages.hosoxinviec',['cv'=>$cv]);
-	}
-
-	public function getTest(){
+	public function getHosoxinviec(){
 		return view('pages.hosoxinviec');
 	}
 
-	public function suaHoso(Request $request){
-		
+	public function getTest(){
+		return view('pages.taohoso');
+	}
+
+	public function postHosoxinviec(Request $request){
+		$cv = Auth::user()->cv;
+		$cv->fullname=$request->fullname;
+		$cv->birthday=$request->birthday;
+		$cv->email=$request->email;
+		$cv->phone=$request->phone;
+		$cv->education=$request->education;
+		$cv->gender=$request->gender;
+		$cv->job_position=$request->job_position;
+		$cv->information=$request->infomation;
+		$cv->skill=$request->skill;
+		$cv->experience=$request->experience;
+		$cv->project=$request->project;
+		$cv->status=$request->status;
+
+		if($request->hasFile('Hinh')){
+			$file = $request ->file('Hinh');
+			$duoi = $file->getClientOriginalExtension();
+			if($duoi != 'jpg' && $duoi != 'png' && $duoi != 'JPG'){
+				$request->session()->flash('loi', 'Bạn chỉ được chọn file jpg,png');
+				return redirect('hosoxinviec');
+			}
+			$name = $file->getClientOriginalName();
+			$Hinh = str_random(4)."_".$name;
+			while(file_exists("upload/cv/".$Hinh)){
+				$Hinh = str_random(4)."_".$name;
+			}
+    		//echo $Hinh;
+			unlink("upload/cv/".$cv->Hinh);
+			$file->move("upload/cv",$Hinh);
+			$cv->Hinh = $Hinh;
+		}
+
+		$cv->save();
+		return redirect('hosoxinviec');
 	}
 }

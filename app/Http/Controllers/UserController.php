@@ -40,10 +40,7 @@ class UserController extends Controller
 		$user->username = $request->username;
 		$user->email = $request->email;
 		$user->password = bcrypt($request->password);
-		$user->gender = $request->gender;
 		$user->fullname = $request->fullname;
-		$user->phone = $request->phone;
-		$user->address=$request->address;
 		$user->quyen = $request->quyen;
 		// if($request->hasFile('upload')){
 		// 	$file = $request ->file('upload');
@@ -89,10 +86,9 @@ class UserController extends Controller
 		$user = User::find($id);
 		$user->username = $request->username;
 		$user->email = $request->email;
-		$user->gender = $request->gender;
+
 		$user->fullname = $request->fullname;
-		$user->phone = $request->phone;
-		$user->address=$request->address;
+
 
 		if($request->changePassword == "on"){
 			$this->validate($request,

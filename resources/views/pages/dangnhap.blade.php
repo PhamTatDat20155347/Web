@@ -6,7 +6,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!DOCTYPE HTML>
 <html>
 <head>
-    <title>Classy Login form Widget Flat Responsive Widget Template :: w3layouts</title>
+    <title>Login</title>
     <script src="dn_dk/js/jquery.min.js"></script>
     <!-- Custom Theme files -->
     <link href="dn_dk/css/style.css" rel="stylesheet" type="text/css" media="all"/>
@@ -22,44 +22,39 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <body>
     <div class="header">
         <div class="header-main">
-           <h1>Đăng nhập</h1>
-           <div class="header-bottom">
-                <div class="header-right w3agile">
-                    <div class="header-left-bottom agileinfo">
-                        @if(count($errors)>0)
-                        <div class="alert alert-danger">
-                            @foreach($errors->all() as $err)
-                            {{$err}}<br>
-                            @endforeach
-                        </div>
-                        @endif
-                        @if(session('thongbao'))
-                        <div class="alert alert-success">
-                            {{session('thongbao')}}
-                        </div>
-                        @endif
-                        @if(session('loi'))
-                        <div class="alert alert-danger">
-                            {{session('loi')}}
-                        </div>
-                        @endif
-                        <form action="dangnhap" method="post">
-                            <input required="" type="hidden" name="_token" value="{{csrf_token()}}">
-                            <input type="text"  value="Email" name="email" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Email';}"/>
-                            <input type="password"  value="Password" name="password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'password';}"/>
-                            <div class="remember">
-                             <span class="checkbox1">
-                               <label class="checkbox"><input type="checkbox" name="" checked=""><i> </i>Remember me</label>
-                           </span>
-                           <div class="clear"> </div>
-                       </div>
-
-                       <input type="submit" value="Đăng nhập">
-                        </form>                     
+         <h1>Đăng nhập</h1>
+         <div class="header-bottom">
+            <div class="header-right w3agile">
+                <div class="header-left-bottom agileinfo">
+                    @if(count($errors)>0)
+                    <div class="alert alert-danger">
+                        @foreach($errors->all() as $err)
+                        {{$err}}<br>
+                        @endforeach
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
+                    @endif
+                    @if(session('loi'))
+                    <div class="alert alert-danger">
+                        {{session('loi')}}
+                    </div>
+                    @endif
+                    <form action="dangnhap" method="post">
+                        <input required="" type="hidden" name="_token" value="{{csrf_token()}}">
+                        <input type="text"  placeholder="Email" name="email" required="" />
+                        <input type="password"  placeholder="Password" name="password" required=""/>
+                        <div class="remember">
+                           <span class="checkbox1">
+                             <label class="checkbox"><input type="checkbox" name="" checked=""><i> </i>Remember me</label>
+                         </span>
+                         <div class="clear"> </div>
+                     </div>
+
+                     <input type="submit" value="Đăng nhập">
+                 </form>                     
+             </div>
+         </div>
+     </div>
+ </div>
+</div>
 </body>
 </html>

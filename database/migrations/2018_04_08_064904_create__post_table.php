@@ -22,6 +22,7 @@ class CreatePostTable extends Migration
             $table->text('description');
             $table->text('content');
             $table->string('keywork');
+            $table->string('Hinh');
             $table->integer('category_id')->unsigned();
             $table->foreign('category_id')->references('id')->on('Category');
             $table->timestamps();

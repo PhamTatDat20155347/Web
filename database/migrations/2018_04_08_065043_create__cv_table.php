@@ -18,17 +18,18 @@ class CreateCvTable extends Migration
             $table->integer('users_id')->unsigned();
             $table->foreign('users_id')->references('id')->on('users');
             $table->string('fullname');
-            $table->string('gender');
+            $table->string('gender')->nullable();
             $table->string('email');
-            $table->string('phone');
-            $table->date('birthday');
-            $table->string('job_position');
-            $table->text('information');
-            $table->text('education');
-            $table->text('skill');
-            $table->text('experience');
-            $table->text('project');
-            $table->boolean('status');
+            $table->string('phone')->nullable();
+            $table->date('birthday')->nullable();
+            $table->string('Hinh')->nullable();
+            $table->string('job_position')->nullable();
+            $table->text('information')->nullable();
+            $table->text('education')->nullable();
+            $table->text('skill')->nullable();
+            $table->text('experience')->nullable();
+            $table->text('project')->nullable();
+            $table->string('status')->nullable();
             $table->timestamps();
         });
     }

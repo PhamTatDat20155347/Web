@@ -39,17 +39,17 @@ Route::post('hosocanhan','PagesController@postHosocanhan');
 Route::get('hosoxinviec','PagesController@getHosoxinviec');
 Route::post('hosoxinviec','PagesController@postHosoxinviec');
 
-Route::get('test','PagesController@getTest');
-// đăng nhập
+Route::get('test','RecruitersController@getTest');
+
+// quản lí trang admin
 Route::get('admin/dangnhap','UserController@getdangnhapAdmin');
 Route::post('admin/dangnhap','UserController@postdangnhapAdmin');
 
 // logout
 Route::get('admin/logout','UserController@getDangXuatAdmin');
 
-
 // tạo route cho admin
-Route::group(['prefix'=>'admin'],function(){
+Route::group(['prefix'=>'admin','middleware'=>'adminLogin'],function(){
 	Route::group(['prefix'=>'user'],function(){
 		Route::get('danhsach','UserController@getdanhsach');
 		Route::get('sua/{id}','UserController@getSua');
@@ -58,21 +58,55 @@ Route::group(['prefix'=>'admin'],function(){
 		Route::post('them',['as' => 'them','uses' => 'UserController@postThem']);
 		Route::get('xoa/{id}','UserController@getXoa');
 	});
-	Route::group(['prefix'=>'nhatuyendung'],function(){
-		Route::get('danhsach','RecruitersController@getdanhsach');
-		Route::get('sua/{id}','RecruitersController@getsua');
-		Route::post('sua/{id}','RecruitersController@postSua');
-		Route::get('them','RecruitersController@getThem');
-		Route::post('them',['as' => 'them','uses' => 'RecruitersController@postThem']);
-		Route::get('xoa/{id}','RecruitersController@getXoa');
-	});
-});
-Route::group(['prefix'=>'nhatuyendung'],function(){
-	Route::get('danhsach','PostController@getdanhsach');
-	Route::get('sua/{id}','PostController@getSua');
-	Route::post('sua/{id}','PostController@postSua');
-	Route::get('them','PostController@getThem');
-	Route::post('them',['as' => 'them','uses' => 'PostController@postThem']);
-	Route::get('xoa/{id}','PostController@getXoa');
+	Route::group(['prefix'=>'post'],function(){
+		Route::get('danhsach','PostController@getdanhsach');
+		Route::get('sua/{id}','PostController@getSua');
+		Route::post('sua/{id}','PostController@postSua');
+		Route::get('them','PostController@getThem');
+		Route::post('them',['as' => 'them','uses' => 'PostController@postThem']);
+		Route::get('xoa/{id}','PostController@getXoa');
 
+	});
+	Route::group(['prefix'=>'category'],function(){
+		Route::get('danhsach','CategoryController@getdanhsach');
+		Route::get('sua/{id}','CategoryController@getSua');
+		Route::post('sua/{id}','CategoryController@postSua');
+		Route::get('them','CategoryController@getThem');
+		Route::post('them',['as' => 'them','uses' => 'CategoryController@postThem']);
+		Route::get('xoa/{id}','CategoryController@getXoa');
+
+	});
+	// Route::group(['prefix'=>'ajax'],function(){
+	// 	Route::get('loaitin/{idTheLoai}','AjaxController@getLoaiTin');
+	// });
+});
+
+
+// nhà tuyển dụng
+Route::get('dangkyntd','RecruitersController@getdangkyntd');
+Route::post('dangkyntd','RecruitersController@postdangkyntd');
+Route::group(['prefix'=>'nhatuyendung'],function(){
+	Route::get('trangchu','RecruitersController@trangchu');
+
+	Route::get('loaitin/{id}/{TenKhongDau}.html','RecruitersController@loaitin');
+	Route::get('tintuc/{id}/{TenKhongDau}.html','RecruitersController@tintuc');
+
+	Route::get('dangnhap','RecruitersController@getdangnhap');
+	Route::post('dangnhap','RecruitersController@postdangnhap');
+
+	Route::get('dangxuat','RecruitersController@dangxuat');
+	Route::get('dangxuatAll','RecruitersController@dangxuatAll');
+
+	Route::post('comment/{id}','RecruitersController@postComment');
+
+// quản lí người dùng
+	Route::get('thongtin','RecruitersController@getthongtin');
+	Route::post('thongtin','RecruitersController@postthongtin');
+
+//dang ký
+	Route::get('dangky','RecruitersController@getdangky');
+	Route::post('dangky','RecruitersController@postdangky');
+
+//tìm kiếm
+	Route::post('timkiem','RecruitersController@timkiem');
 });

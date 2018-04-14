@@ -16,18 +16,6 @@
                             <a href="#"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                         </li>
                         <li>
-                            <a href="admin/theloai/danhsach"><i class="fa fa-users fa-fw"></i>Nhà tuyển dụng<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="admin/theloai/danhsach">Danh sách</a>
-                                </li>
-                                <li>
-                                    <a href="admin/theloai/them">Thêm nhà tuyển dụng</a>
-                                </li>
-                            </ul>
-                            <!-- /.nav-second-level -->
-                        </li>
-                        <li>
                             <a href="admin/user/danhsach"><i class="fa fa-users fa-fw"></i> User<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
@@ -35,6 +23,30 @@
                                 </li>
                                 <li>
                                     <a href="admin/user/them">Thêm user</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li>
+                            <a href="admin/category/danhsach"><i class="fa fa-bar-chart-o fa-fw"></i>Ngành tuyển dụng<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="admin/category/danhsach">Danh sách các ngành tuyển dụng</a>
+                                </li>
+                                <li>
+                                    <a href="admin/category/them">Thêm ngành tuyển dụng</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li>
+                            <a href="admin/post/danhsach"><i class="fa fa-bar-chart-o fa-fw"></i>Bài tuyển dụng<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="admin/post/danhsach">Danh sách</a>
+                                </li>
+                                <li>
+                                    <a href="admin/post/them">Thêm</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->

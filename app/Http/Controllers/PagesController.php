@@ -199,7 +199,6 @@ class PagesController extends Controller
 		$cv->education=$request->education;
 		$cv->gender=$request->gender;
 		$cv->job_position=$request->job_position;
-		$cv->information=$request->infomation;
 		$cv->skill=$request->skill;
 		$cv->experience=$request->experience;
 		$cv->project=$request->project;
@@ -218,7 +217,7 @@ class PagesController extends Controller
 				$Hinh = str_random(4)."_".$name;
 			}
     		//echo $Hinh;
-			unlink("upload/cv/".$cv->Hinh);
+
 			$file->move("upload/cv",$Hinh);
 			$cv->Hinh = $Hinh;
 		}
@@ -226,4 +225,5 @@ class PagesController extends Controller
 		$cv->save();
 		return redirect('hosoxinviec');
 	}
+
 }

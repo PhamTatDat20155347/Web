@@ -15,14 +15,13 @@ class CreatePostTable extends Migration
     {
         Schema::create('Post', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('congty');
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
             $table->string('title');
-            $table->text('description');
-            $table->text('content');
-            $table->string('keywork');
-            $table->string('Hinh');
+            $table->text('description')->nullable();
+            $table->text('content')->nullable();
+            $table->string('keywork')->nullable();
+            $table->string('Hinh')->nullable();
             $table->integer('category_id')->unsigned();
             $table->foreign('category_id')->references('id')->on('Category');
             $table->timestamps();

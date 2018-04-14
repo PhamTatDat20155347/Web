@@ -10,7 +10,7 @@ class Post extends Model
 	protected $table = "post";
 
 	public function user(){
-		return $this->belongsTo('App\User','users_id','id');
+		return $this->belongsTo('App\User','user_id','id');
 	}
 	public function recruitment(){
 		return $this->hasMany('App\Recruitment','post_id','id');

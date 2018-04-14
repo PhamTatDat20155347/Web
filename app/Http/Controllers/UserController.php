@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use Illuminate\Support\Facades\Auth; // phải có lớp này mới có thể sử dụng để đăng nhập
 class UserController extends Controller
 {
     //
@@ -42,25 +43,6 @@ class UserController extends Controller
 		$user->password = bcrypt($request->password);
 		$user->fullname = $request->fullname;
 		$user->quyen = $request->quyen;
-		// if($request->hasFile('upload')){
-		// 	$file = $request ->file('upload');
-		// 	$duoi = $file->getClientOriginalExtension();
-		// 	if($duoi != 'jpg' && $duoi != 'png' && $duoi != 'JPG'){
-		// 		$request->session()->flash('loi', 'Bạn chỉ được chọn file jpg,png');
-		// 		return redirect('admin/user/them');
-		// 	}
-		// 	$name = $file->getClientOriginalName();
-		// 	$cv_upload = str_random(4)."_".$name;
-		// 	while(file_exists("upload/cv/".$cv_upload)){
-		// 		$cv_upload = str_random(4)."_".$name;
-		// 	}
-  //   		//echo $Hinh;
-		// 	$file->move("upload/cv",$cv_upload);
-		// 	$user->cv_upload = $cv_upload;
-		// }else{
-		// 	$user->cv_upload="";
-		// }
-
 
 		$user->save();
 		$request->session()->flash('thongbao', 'Bạn đã thêm thành công!');
@@ -107,27 +89,6 @@ class UserController extends Controller
 		}
 		$user->quyen = $request->quyen;
 
-		// if($request->hasFile('upload')){
-		// 	$file = $request ->file('upload');
-		// 	$duoi = $file->getClientOriginalExtension();
-		// 	if($duoi != 'jpg' && $duoi != 'png' && $duoi != 'JPG'){
-		// 		$request->session()->flash('loi', 'Bạn chỉ được chọn file jpg,png');
-		// 		return redirect('admin/user/them');
-		// 	}
-		// 	$name = $file->getClientOriginalName();
-		// 	$cv_upload = str_random(4)."_".$name;
-		// 	while(file_exists("upload/cv/".$cv_upload)){
-		// 		$cv_upload = str_random(4)."_".$name;
-		// 	}
-  //   		//echo $Hinh;
-  //   		unlink("upload/cv/".$user->cv_upload);
-		// 	$file->move("upload/cv",$cv_upload);
-			
-		// 	$user->cv_upload = $cv_upload;
-		// }else{
-		// 	$user->cv_upload="";
-		// }
-
 		$user->save();
 		$request->session()->flash('thongbao', 'Bạn đã sửa thành công!');
 		return redirect('admin/user/sua/'.$id);
@@ -140,5 +101,35 @@ class UserController extends Controller
 		$user->delete();
 		$request->session()->flash('thongbao','Xóa thành công!');
 		return redirect('admin/user/danhsach');
+	}
+
+
+	// admin
+	public function getdangnhapAdmin(){
+		return view('admin.dangnhap');
+	}
+	public function postdangnhapAdmin(Request $request){
+		$this->validate($request,
+			[
+				'email' =>'required',
+				'password'=>'required|min:3|max:32'
+			],
+			[
+				'email.required' => 'Bạn chưa nhập email',
+				'password.required' => 'Bạn chưa nhập password',
+				'password.min' => 'Password không được nhỏ hơn 3 kí tự',
+				'password.max' =>'Password không được lớn hơn 32 kí tự'
+			]);
+		$data = ['email'=>$request->email,'password'=>$request->password];
+		// kiểm tra đăng nhập
+		if(Auth::attempt($data)){
+			return redirect('admin/user/danhsach');
+		}else{
+			return view('admin.dangnhap');
+		}
+	}
+	public function getDangXuatAdmin(){
+		Auth::logout();
+		return redirect('admin/dangnhap');
 	}
 }

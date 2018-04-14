@@ -69,7 +69,7 @@
             </li>
           </ul>
           <ul class="nav navbar-nav navbar-right float-right">
-            <li class="left"><a href="post-job.html"><i class="ti-pencil-alt"></i> NHÀ TUYỂN DỤNG</a></li>
+            <li class="left"><a href="nhatuyendung/trangchu" target="_blank"><i class="ti-pencil-alt"></i> NHÀ TUYỂN DỤNG</a></li>
             @if(!Auth::user())
             <li class="right"><a href="dangnhap"><i class="ti-lock"></i>  Đăng nhập</a></li>
             <li class="right"><a href="dangky"><i class="ti-lock"></i>  Đăng ký</a></li>

@@ -97,8 +97,6 @@ Route::group(['prefix'=>'nhatuyendung'],function(){
 	Route::get('dangxuat','RecruitersController@dangxuat');
 	Route::get('dangxuatAll','RecruitersController@dangxuatAll');
 
-	Route::post('comment/{id}','RecruitersController@postComment');
-
 // quản lí người dùng
 	Route::get('thongtin','RecruitersController@getthongtin');
 	Route::post('thongtin','RecruitersController@postthongtin');
@@ -107,6 +105,10 @@ Route::group(['prefix'=>'nhatuyendung'],function(){
 	Route::get('dangky','RecruitersController@getdangky');
 	Route::post('dangky','RecruitersController@postdangky');
 
+	Route::get('danhsach','RecruitersController@danhsach');
+	Route::get('baipost/{id}.html','RecruitersController@baipost');
+	Route::get('them','RecruitersController@getThem');
+	Route::post('them','RecruitersController@postThem');
 //tìm kiếm
 	Route::post('timkiem','RecruitersController@timkiem');
 });

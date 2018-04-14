@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Category;
+use App\Post;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Query\Builde;
 use Illuminate\Support\Facades\Auth; // phải có lớp này mới có thể sử dụng để đăng nhập
 class RecruitersController extends Controller
 {
@@ -130,5 +134,63 @@ class RecruitersController extends Controller
 	public function dangxuatAll(){
 		Auth::logout();
 		return redirect('trangchu');
+	}
+
+	public function danhsach(){
+		$userid = Auth::user()->id;
+		$post = Post::where('user_id',$userid)->paginate(3);
+		return view('nhatuyendung.pages.danhsach',['post'=>$post]);
+	}
+
+	public function getThem(){
+		$category = Category::all();
+		return view('nhatuyendung.pages.them',['category'=>$category]);
+	}
+	public function postThem(Request $request){
+		$this->validate($request,
+			[
+				'category_id'=>'required'
+			],
+			[
+				'category_id.required' =>'Bạn chưa chọn ngành'
+
+			]);
+		$post = new Post;
+		$post->user_id = Auth::user()->id;
+		$post->category_id = $request->category_id;
+		$post->title = $request->title;
+		$post->description = Auth::user()->congty;
+		$post->content = $request->content;
+		$post->keywork = $request->keywork;
+
+		if($request->hasFile('Hinh')){
+			$file = $request ->file('Hinh');
+			$duoi = $file->getClientOriginalExtension();
+			if($duoi != 'jpg' && $duoi != 'png' && $duoi != 'JPG'){
+				$request->session()->flash('loi', 'Bạn chỉ được chọn file jpg,png');
+				return redirect('nhatuyendung/them');
+			}
+			$name = $file->getClientOriginalName();
+			$Hinh = str_random(4)."_".$name;
+			while(file_exists("upload/post/".$Hinh)){
+				$Hinh = str_random(4)."_".$name;
+			}
+    		//echo $Hinh;
+			$file->move("upload/post",$Hinh);
+			$post->Hinh = $Hinh;
+		}else{
+			$post->Hinh="";
+		}
+
+		$post->save();
+		$request->session()->flash('thongbao', 'Bạn đã thêm thành công!');
+		return redirect('nhatuyendung/them');
+	}
+
+	public function baipost($id){
+		$post = Post::find($id);
+		$userid = Auth::user()->id;
+		$post1 = Post::where('user_id',$userid)->take(4)->get();
+		return view('nhatuyendung.pages.baipost',['post'=>$post,'post1'=>$post1]);
 	}
 }

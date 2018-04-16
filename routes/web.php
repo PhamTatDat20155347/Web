@@ -55,6 +55,7 @@ Route::get('admin/logout','UserController@getDangXuatAdmin');
 
 // tạo route cho admin
 Route::group(['prefix'=>'admin','middleware'=>'adminLogin'],function(){
+	Route::get('droadboad','HomeController@charts');
 	Route::group(['prefix'=>'user'],function(){
 		Route::get('danhsach','UserController@getdanhsach');
 		Route::get('sua/{id}','UserController@getSua');

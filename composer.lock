@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "d5bca48e56bbf3a25645858fcab9c285",
+    "content-hash": "71013ca7e2c779ada8e1a9198479eb5a",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -817,17 +817,54 @@
             "time": "2017-06-19T01:22:40+00:00"
         },
         {
-            "name": "nesbot/carbon",
-            "version": "1.25.0",
+            "name": "muhamadrezaar/highcharts",
+            "version": "1.0.4",
             "source": {
                 "type": "git",
-                "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "cbcf13da0b531767e39eb86e9687f5deba9857b4"
+                "url": "https://github.com/julles/laravel-highcharts.git",
+                "reference": "05fd92d4d858ffc70df2bd6bdd2495e669c383f4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/cbcf13da0b531767e39eb86e9687f5deba9857b4",
-                "reference": "cbcf13da0b531767e39eb86e9687f5deba9857b4",
+                "url": "https://api.github.com/repos/julles/laravel-highcharts/zipball/05fd92d4d858ffc70df2bd6bdd2495e669c383f4",
+                "reference": "05fd92d4d858ffc70df2bd6bdd2495e669c383f4",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Oblagio\\Highcharts\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Muhamad Reza Abdul Rohim",
+                    "email": "reza.wikrama3@gmail.com"
+                }
+            ],
+            "description": "Laravel Highcarts Packages",
+            "keywords": [
+                "highcharts",
+                "laravel"
+            ],
+            "time": "2017-03-13T09:32:13+00:00"
+        },
+        {
+            "name": "nesbot/carbon",
+            "version": "1.26.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/briannesbitt/Carbon.git",
+                "reference": "bab61b25da5a28a6a7a5785d34802174b2a24b99"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/bab61b25da5a28a6a7a5785d34802174b2a24b99",
+                "reference": "bab61b25da5a28a6a7a5785d34802174b2a24b99",
                 "shasum": ""
             },
             "require": {
@@ -846,7 +883,7 @@
             },
             "autoload": {
                 "psr-4": {
-                    "Carbon\\": "src/Carbon/"
+                    "": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -867,7 +904,7 @@
                 "datetime",
                 "time"
             ],
-            "time": "2018-03-19T15:50:49+00:00"
+            "time": "2018-04-16T08:58:42+00:00"
         },
         {
             "name": "nikic/php-parser",

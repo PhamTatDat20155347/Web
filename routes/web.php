@@ -22,8 +22,13 @@ Route::get('lienhe','PagesController@lienhe');
 // đăng nhập
 Route::get('dangnhap','PagesController@getDangnhap');
 Route::post('dangnhap','PagesController@postDangnhap');
-
+Route::post('dangnhap/{id}','PagesController@dangnhap2');
+Route::get('xembaidang/{id}.html','PagesController@xembaidang');
+Route::post('guicv/{id}','PagesController@guicv');
 //đăng xuất
+Route::get('baidangcongty/{id}','PagesController@baidangcongty');
+Route::get('tatcavieclam','PagesController@tatcavieclam');
+
 Route::get('dangxuat','PagesController@dangxuat');
 
 //dang ký
@@ -107,8 +112,19 @@ Route::group(['prefix'=>'nhatuyendung'],function(){
 
 	Route::get('danhsach','RecruitersController@danhsach');
 	Route::get('baipost/{id}.html','RecruitersController@baipost');
+
 	Route::get('them','RecruitersController@getThem');
 	Route::post('them','RecruitersController@postThem');
+
+	Route::get('sua/{id}','RecruitersController@getSua');
+	Route::post('sua/{id}','RecruitersController@postSua');
+
+	Route::get('xoa/{id}','RecruitersController@xoa');
+
+	Route::get('danhsachcv','RecruimentController@danhsachcv');
+
+	Route::get('xemcv/{id}','RecruimentController@xemcv');
+	Route::get('chapnhancv/{iduser}/{idcv}','RecruimentController@chapnhancv');
 //tìm kiếm
 	Route::post('timkiem','RecruitersController@timkiem');
 });

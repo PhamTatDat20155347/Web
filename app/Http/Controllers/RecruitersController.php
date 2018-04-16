@@ -6,17 +6,28 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Category;
 use App\Post;
+use App\Notifications\NotificationUser;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Query\Builde;
 use Illuminate\Support\Facades\Auth; // phải có lớp này mới có thể sử dụng để đăng nhập
 class RecruitersController extends Controller
 {
-
+	public function index()
+	{
+		$user = User::find(1);
+		$user->notify(new NotificationUser());
+	}
+	
 	public function getTest(){
 		return view('test');
 	}
 
 	public function trangchu(){
+		if(Auth::user()){
+			if(Auth::user()->quyen==1){
+				return view('nhatuyendung.pages.trangchu');
+			}
+		}
 		return view('nhatuyendung.pages.trangchu');
 	}
 
@@ -79,7 +90,7 @@ class RecruitersController extends Controller
 		$data = ['email'=>$request->email,'password'=>$request->password,'quyen'=>1];
         // kiểm tra đăng nhập
 		if(Auth::attempt($data)){
-			return redirect('nhatuyendung/trangchu');
+			return redirect('nhatuyendung/danhsach');
 		}else{
 			$request->session()->flash('loi', 'Đăng nhập thất bại');
 			return redirect('nhatuyendung/dangnhap');
@@ -137,16 +148,27 @@ class RecruitersController extends Controller
 	}
 
 	public function danhsach(){
-		$userid = Auth::user()->id;
-		$post = Post::where('user_id',$userid)->paginate(3);
-		return view('nhatuyendung.pages.danhsach',['post'=>$post]);
+		if(Auth::user()){
+			$userid = Auth::user()->id;
+			$post = Post::where('user_id',$userid)->paginate(3);
+			return view('nhatuyendung.pages.danhsach',['post'=>$post]);
+		}else{
+			return redirect('nhatuyendung/dangnhap');
+		}
+
 	}
 
 	public function getThem(){
-		$category = Category::all();
-		return view('nhatuyendung.pages.them',['category'=>$category]);
+		if(Auth::user()){
+			$category = Category::all();
+			return view('nhatuyendung.pages.them',['category'=>$category]);
+		}else{
+			return redirect('nhatuyendung/dangnhap');
+		}
+
 	}
 	public function postThem(Request $request){
+
 		$this->validate($request,
 			[
 				'category_id'=>'required'
@@ -187,6 +209,62 @@ class RecruitersController extends Controller
 		return redirect('nhatuyendung/them');
 	}
 
+//sửa
+public function getSua($id){
+		if(Auth::user()){
+			$category = Category::all();
+			$post = Post::find($id);
+
+			return view('nhatuyendung.pages.sua',['category'=>$category,'post'=>$post]);
+		}else{
+			return redirect('nhatuyendung/dangnhap');
+		}
+
+	}
+	public function postSua(Request $request,$id){
+
+		$this->validate($request,
+			[
+				'category_id'=>'required'
+			],
+			[
+				'category_id.required' =>'Bạn chưa chọn ngành'
+
+			]);
+		$post = Post::find($id);
+		$post->user_id = Auth::user()->id;
+		$post->category_id = $request->category_id;
+		$post->title = $request->title;
+		$post->description = Auth::user()->congty;
+		$post->content = $request->content;
+		$post->keywork = $request->keywork;
+
+		if($request->hasFile('Hinh')){
+			$file = $request ->file('Hinh');
+			$duoi = $file->getClientOriginalExtension();
+			if($duoi != 'jpg' && $duoi != 'png' && $duoi != 'JPG'){
+				$request->session()->flash('loi', 'Bạn chỉ được chọn file jpg,png');
+				return redirect('nhatuyendung/them');
+			}
+			$name = $file->getClientOriginalName();
+			$Hinh = str_random(4)."_".$name;
+			while(file_exists("upload/post/".$Hinh)){
+				$Hinh = str_random(4)."_".$name;
+			}
+    		//echo $Hinh;
+			$file->move("upload/post",$Hinh);
+			$post->Hinh = $Hinh;
+		}
+
+		$post->save();
+		$request->session()->flash('thongbao', 'Bạn đã sửa thành công!');
+		return redirect('nhatuyendung/sua/'.$post->id);
+	}
+	public function xoa($id){
+		$post = Post::find($id);
+		$post->delete();
+		return redirect('nhatuyendung/danhsach');
+	}
 	public function baipost($id){
 		$post = Post::find($id);
 		$userid = Auth::user()->id;

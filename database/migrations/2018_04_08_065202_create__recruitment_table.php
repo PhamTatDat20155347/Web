@@ -16,9 +16,10 @@ class CreateRecruitmentTable extends Migration
         Schema::create('Recruitment', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('post_id')->unsigned();
-            $table->foreign('post_id')->references('id')->on('Post');
+            $table->foreign('post_id')->references('id')->on('Post')->onDelete('cascade');
             $table->integer('cv_id')->unsigned();
-            $table->foreign('cv_id')->references('id')->on('Cv');
+            $table->foreign('cv_id')->references('id')->on('Cv')->onDelete('cascade');
+            $table->integer('user');
             $table->timestamps();
         });
     }

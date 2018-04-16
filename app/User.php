@@ -36,6 +36,6 @@ class User extends Authenticatable
         return $this->hasMany('App\Post','user_id','id');
     }
     public function recruitmentNTD(){
-        return $this->hasManyThrough('app\Recruitment','App\Post','user_id','post_id','id');
+        return $this->hasManyThrough('App\Recruitment','App\Post','user_id','post_id','id');
     }
 }

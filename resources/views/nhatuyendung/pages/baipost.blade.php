@@ -1,9 +1,11 @@
     @extends('nhatuyendung.layout.index')
     @section('content')
     <!-- Page Content -->
+    <a href="nhatuyendung/sua/{{$post->id}}" style="font-size: 25px; margin-left:100px; padding: 5px; background-color: #973CAA; border-radius: 20px;">Sửa</a>
+        <a href="nhatuyendung/xoa/{{$post->id}}" style="font-size: 25px; margin-left:10px; padding: 5px; background-color: #973CAA; border-radius: 20px;">Xóa</a>
     <div class="container">
         <div class="row">
-
+        
             <!-- Blog Post Content Column -->
             <div class="col-lg-9">
 

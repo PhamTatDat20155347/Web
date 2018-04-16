@@ -3,7 +3,7 @@
 <!-- Công ty hàng đầu -->
 <section class="bnrs container home__featured-companies">
   <div id="ads_TOP_COMPANIES_HORISONTAL" class="row">
-    <h1 align="center" style="padding: 50px;">Các Công ty lon nhat</h1>
+    <h1 align="center" style="padding: 50px;">Các Công Ty Lớn Nhất</h1>
     <div class="animated fadeIn">
 
       <div class="col-md-2 col-sm-4 col-xs-6">
@@ -72,48 +72,82 @@
 <!-- Hot Job -->
 <section class="find-job section">
   <div class="container">
-    <h2 class="section-title">Hot Jobs</h2>
-    <div class="row">
-      <div class="col-md-12">
-        <div class="job-list">
-          <div class="thumb">
-            <a href="job-details.html"><img src="img/jobs/img-1.jpg" alt=""></a>
+
+    <?php $i=0; ?>
+    @if(!Auth::user())
+    <h2 class="section-title">Việc Làm Tốt Nhất</h2>
+    @foreach($post as $post1)
+    <?php $i++; ?>
+    <div class="row" style="margin-left: 10px; ">
+      <div class="col-md-12" >
+        <div class="job-list" style="width: 1200px;">
+          <div class="thumb" style="">
+            <a href="job-details.html"><img width="200px;" height="150px;" src="upload/post/{{$post1->Hinh}}" alt=""></a>
           </div>
-          <div class="job-list-content">
-            <h4><a href="job-details.html">Thiết kế website tìm việc làm</a><span class="full-time">Full-Time</span></h4>
-            <p>Chỉ cần đẹp trai, xinh gái</p>
+          <div class="job-list-content" style="display: inline-block; margin-left: 20px; width: 850px;">
+            <h4><a href="job-details.html">{{$post1->title}}</a><span class="full-time">Full-Time</span></h4>
+            <p>{{$post1->content}}</p>
             <div class="job-tag">
               <div class="pull-left">
                 <div class="meta-tag">
-                  <span><a href="browse-categories.html"><i class="ti-brush"></i>Art/Design</a></span>
-                  <span><i class="ti-location-pin"></i>Quất Lấm, Nam Định</span>
-                  <span><i class="ti-time"></i>60/Hour</span>
+                  <span><a href="browse-categories.html"><i class="ti-brush"></i>by TatDat</a></span>
+                  <span><i class="ti-location-pin"></i>{{$post1->user->diachi}}</span>
+                  <span><i class="ti-time"></i>{{$post1->user->congty}}</span>
                 </div>
               </div>
               <div class="pull-right">
                 <div class="icon">
                   <i class="ti-heart"></i>
                 </div>
-                <a href="job-details.html" class="btn btn-common btn-rm">More Detail</a>
+                <a href="xembaidang/{{$post1->id}}.html" class="btn btn-common btn-rm">Xem thêm</a>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="col-md-12">
-        <div class="showing pull-left">
-          <a href="#">Showing <span>6-10</span> Of 24 Jobs</a>
-        </div>                    
-        <ul class="pagination pull-right">              
-          <li class="active"><a href="#" class="btn btn-common" ><i class="ti-angle-left"></i> prev</a></li>
-          <li><a href="#">1</a></li>
-          <li><a href="#">2</a></li>
-          <li><a href="#">3</a></li>
-          <li><a href="#">4</a></li>
-          <li><a href="#">5</a></li>
-          <li class="active"><a href="#" class="btn btn-common">Next <i class="ti-angle-right"></i></a></li>
-        </ul>
+    </div>
+    @endforeach
+    @else
+    <h2 class="section-title">Việc Làm Gợi Ý</h2>
+    @foreach($post as $post1)
+    <?php $i++; ?>
+    <div class="row" style="margin-left: 10px; ">
+      <div class="col-md-12" >
+        <div class="job-list" style="width: 1200px;">
+          <div class="thumb" style="">
+            <a href="job-details.html"><img width="200px;" height="150px;" src="upload/post/{{$post1->Hinh}}" alt=""></a>
+          </div>
+          <div class="job-list-content" style="display: inline-block; margin-left: 20px; width: 850px;">
+            <h4><a href="job-details.html">{{$post1->title}}</a><span class="full-time">Full-Time</span></h4>
+            <p>{{$post1->content}}</p>
+            <div class="job-tag">
+              <div class="pull-left">
+                <div class="meta-tag">
+                  <span><a href="browse-categories.html"><i class="ti-brush"></i>by TatDat</a></span>
+                  <span><i class="ti-location-pin"></i>{{$post1->user->diachi}}</span>
+                  <span><i class="ti-time"></i>{{$post1->user->congty}}</span>
+                </div>
+              </div>
+              <div class="pull-right">
+                <div class="icon">
+                  <i class="ti-heart"></i>
+                </div>
+                <a href="xembaidang/{{$post1->id}}.html" class="btn btn-common btn-rm">Xem thêm</a>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
+    </div>
+    @endforeach
+    @endif
+    <div class="col-md-12">
+      <div class="showing pull-left">
+        <a href="#">Showing {{$i}} Jobs</a>
+      </div>                    
+      <ul class="pagination pull-right">              
+        <li>{{$post->links()}}</li>
+      </ul>
     </div>
   </div>
 </section>

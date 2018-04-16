@@ -1,10 +1,12 @@
 @extends('nhatuyendung.layout.index')
 @section('content')
 <!-- Page Content -->
-<div class="container" style="width: 1000px;">
+<div class="container" >
+@include('nhatuyendung.layout.menu')
 
 	<!-- slider -->
 	<div class="row carousel-holder">
+
 		<div class="col-md-2">
 		</div>
 		<div class="col-md-8">

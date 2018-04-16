@@ -5,20 +5,51 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Cv;
+use App\Post;
+use App\Recruitment;
 use Illuminate\Support\Facades\Auth; // phải có lớp này mới có thể sử dụng để đăng nhập
 class PagesController extends Controller
 {
     //
 	function __construct(){
 		$cv = Cv::all();
+		$user = User::all();
 		view()->share('cv',$cv);
+		view()->share('user',$user);
 		if(Auth::check()){
 			view()->share('hosocanhan',Auth::user());
 		}
 	}
 
+	public function baidangcongty($id){
+
+			$post = Post::where('user_id','=',$id)->paginate(5);
+			return view('pages.baidangcongty',['post'=>$post]);
+	}
+
 	public function getTrangchu(){
-		return  view('pages.trangchu');
+		
+		if(Auth::user()){
+			if(Auth::user()->quyen==0){
+				$key = Auth::user()->cv->job_position;
+				if($key==''){
+					$post = Post::paginate(5);
+					return view('pages.trangchu',['post'=>$post]);
+				}
+				$post = Post::where('keywork','=',$key)->paginate(5);
+
+				return view('pages.trangchu',['post'=>$post]);
+			}else{
+			//Auth::logout();
+				$post = Post::paginate(5);
+				return  view('pages.trangchu',['post'=>$post]);
+			}
+		}else{
+			//Auth::logout();
+			$post = Post::paginate(5);
+			return  view('pages.trangchu',['post'=>$post]);
+		}
+
 	}
 
 	public function gioithieu(){
@@ -32,6 +63,27 @@ class PagesController extends Controller
 		return view('pages.dangnhap');
 	}
 
+	public function dangnhap2($id ,Request $request){
+		$this->validate($request,
+			[
+				'email' =>'required',
+				'password'=>'required|min:3|max:32'
+			],
+			[
+				'email.required' => 'Bạn chưa nhập email',
+				'password.required' => 'Bạn chưa nhập password',
+				'password.min' => 'Password không được nhỏ hơn 3 kí tự',
+				'password.max' =>'Password không được lớn hơn 32 kí tự'
+			]);
+		$data = ['email'=>$request->email,'password'=>$request->password,'quyen'=>0];
+        // kiểm tra đăng nhập
+		if(Auth::attempt($data)){
+			return redirect('xembaidang/'.$id.'.html');
+		}else{
+			$request->session()->flash('loi', 'Đăng nhập thất bại');
+			return redirect('xembaidang/'.$id.'.html');
+		}
+	}
 	public function postDangnhap(Request $request){
 		$this->validate($request,
 			[
@@ -44,7 +96,7 @@ class PagesController extends Controller
 				'password.min' => 'Password không được nhỏ hơn 3 kí tự',
 				'password.max' =>'Password không được lớn hơn 32 kí tự'
 			]);
-		$data = ['email'=>$request->email,'password'=>$request->password];
+		$data = ['email'=>$request->email,'password'=>$request->password,'quyen'=>0];
         // kiểm tra đăng nhập
 		if(Auth::attempt($data)){
 			return redirect('trangchu');
@@ -55,6 +107,9 @@ class PagesController extends Controller
 	}
 
 	public function dangxuat(){
+		// if(Auth::user()){
+		// 	if(Auth::user()->quyen==)
+		// }
 		Auth::logout();
 		return redirect('trangchu');
 	}
@@ -226,4 +281,32 @@ class PagesController extends Controller
 		return redirect('hosoxinviec');
 	}
 
+	public function xembaidang($id){
+		$post = Post::find($id);
+		$key = $post->keywork;
+		$postlienquan =  Post::where('keywork','=',$key)->paginate(5);
+		return view('pages.xembaidang',['post'=>$post,'postlienquan'=>$postlienquan]);
+	}
+
+	public function guicv(Request $request,$id){
+		$p= Post::find($id);
+		$post = $id;
+		$cv = Auth::user()->cv;
+
+		$cv_id = $cv->id;
+		$post_id = $post;
+
+		$recruitment = new Recruitment;
+		$recruitment->cv_id=$cv_id;
+		$recruitment->post_id=$post_id;
+		$recruitment->user = $p->user_id;
+
+		$recruitment->save();
+		$request->session()->flash('thongbao', 'Bạn đã nộp đơn thành công. Vui lòng đợi thông báo từ nhà tuyển dụng!');
+		return redirect('xembaidang/'.$id.'.html');
+	}
+	public function tatcavieclam(){
+		$post = Post::paginate(5);
+		return  view('pages.tatcavieclam',['post'=>$post]);
+	}
 }

@@ -4,13 +4,30 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Cv;
+use App\Recruitment;
+use App\Notifications\NotificationUser;
 use Illuminate\Support\Facades\Auth; // phải có lớp này mới có thể sử dụng để đăng nhập
 class UserController extends Controller
 {
+	public function index()
+	{
+		$user = User::find(1);
+		$user->notify(new NotificationUser());
+	}
     //
 	public function getdanhsach(){
-		$user = User::all();
-		return view('admin.user.danhsach',['user'=>$user]);
+		if(Auth::user()){
+			if(Auth::user()->quyen==2){
+				$user = User::all();
+				return view('admin.user.danhsach',['user'=>$user]);
+			}else{
+				return view('admin.dangnhap');
+			}
+		}else{
+			return view('admin.dangnhap');
+		}
+
 
 	}
 	public function getThem(){
@@ -98,9 +115,20 @@ class UserController extends Controller
 	// xóa
 	public function getXoa(Request $request,$id){
 		$user = User::find($id);
+		// dd($id);
+		// if($user->quyen==0){
+		// 	 $user->quyen;
+		//  	dd($cv = Cv::where('users_id',$id)->get());
+		//  	echo  $cv->id;
+
 		$user->delete();
 		$request->session()->flash('thongbao','Xóa thành công!');
 		return redirect('admin/user/danhsach');
+		// }else{
+		// 	$request->session()->flash('loi','Xóa không thành công!');
+		// 	return redirect('admin/user/danhsach');
+		// 	}
+
 	}
 
 
@@ -120,7 +148,7 @@ class UserController extends Controller
 				'password.min' => 'Password không được nhỏ hơn 3 kí tự',
 				'password.max' =>'Password không được lớn hơn 32 kí tự'
 			]);
-		$data = ['email'=>$request->email,'password'=>$request->password];
+		$data = ['email'=>$request->email,'password'=>$request->password,'quyen'=>2];
 		// kiểm tra đăng nhập
 		if(Auth::attempt($data)){
 			return redirect('admin/user/danhsach');

@@ -62,7 +62,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
           <form action="themhoso" method="post" enctype="multipart/form-data">
             <input required="" type="hidden" name="_token" value="{{csrf_token()}}">
             <input required="" type="text"  placeholder="Họ và tên" name="fullname" value="{{Auth::user()->fullname}}" />
-            <input type="text"  placeholder="Birthday" name="birthday" required=""/>
+            <input type="text"  placeholder="YYYY-mm-dd" name="birthday" required=""/>
             <input type="text"  placeholder="Email" name="email" required="" value="{{Auth::user()->email}}"/>
             <input type="text"  placeholder="Điện thoại" name="phone" required=""/>
             <input type="text"  placeholder="Học vấn" name="education" required=""/>

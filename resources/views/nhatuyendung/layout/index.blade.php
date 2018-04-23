@@ -13,7 +13,7 @@
     <base href="{{asset('')}}">
     <!-- Bootstrap Core CSS -->
     <link href="tuyendung/css/bootstrap.min.css" rel="stylesheet">
-
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <!-- Custom CSS -->
     <link href="tuyendung/css/shop-homepage.css" rel="stylesheet">
     <link href="tuyendung/css/my.css" rel="stylesheet">

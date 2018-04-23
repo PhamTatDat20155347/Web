@@ -20,6 +20,9 @@ class CreateRecruitmentTable extends Migration
             $table->integer('cv_id')->unsigned();
             $table->foreign('cv_id')->references('id')->on('Cv')->onDelete('cascade');
             $table->integer('user');
+            $table->string('HTNguoiUngTuyen');
+            $table->string('TTNUT');
+            $table->string('trangthai');
             $table->timestamps();
         });
     }

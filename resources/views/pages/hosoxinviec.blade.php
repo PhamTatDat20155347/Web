@@ -48,56 +48,71 @@
 
   <div id="page-wrap" style="padding: 10px; padding-right:50px;background-color: #9FDFA4; color: #153172;">
     <?php $cv= Auth::user()->cv; ?>
-    <a style="color: blue; font-style: italic; font-weight: bold;" class="back-dashboard m-b-sm" href="trangchu"><span><i class="fa fa-arrow-left"></i>Trở về trang chủ</span></a>
+    <a style="color: blue; font-style: italic; font-weight: bold;" class="back-dashboard m-b-sm" href="trangchu"><span class="glyphicon glyphicon-arrow-left"><i class="fa fa-arrow-left"></i>Trở về trang chủ</span></a>
     <form method="post" action="hosoxinviec" enctype="multipart/form-data">
-                  <input required="" type="hidden" name="_token" value="{{csrf_token()}}">
-    <div><input type="file" name="Hinh" id="pic1" value="Hình" ></div>
-    <img src="upload/cv/{{$cv->Hinh}}" alt="avatar" id="pic" style="width: 200px; height: 203px;" /><br>
+      <input required="" type="hidden" name="_token" value="{{csrf_token()}}">
+      <div><input type="file" name="Hinh" id="pic1" value="Hình" ></div>
+      <img src="upload/cv/{{$cv->Hinh}}" alt="avatar" id="pic" style="width: 200px; height: 203px;" /><br>
 
 
-    <div id="contact-info" class="vcard">
+      <div id="contact-info" class="vcard">
 
-      <!-- Microformats! -->
+        <!-- Microformats! -->
 
-      <input style="width: 585px; font-size: 50px; color: #69A465; " type="text" name="fullname" required="" value="{{$cv->fullname}}">
+        <input style="width: 585px; font-size: 50px; color: #69A465; " type="text" name="fullname" required="" value="{{$cv->fullname}}">
 
-      <p>
-        Điện thoại:&nbsp; <span class="tel"><input style="width: 300px;" type="text" name="phone" required="" value="{{$cv->phone}}"></span><br />
-        Email:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input style="width: 300px;" type="text" name="email" required="" value="{{$cv->email}}"><br />
-        Giới tính:&nbsp;&nbsp;&nbsp; <span class="gender"><input style="width: 300px;" type="text" name="gender" required="" value="{{$cv->gender}}"></span><br>
-        Ngày sinh:&nbsp; <span class="date"><input style="width: 300px;" type="text" name="birthday" required="" value="{{$cv->birthday}}"></span>
+        <p>
+          Điện thoại:&nbsp; <span class="tel"><input style="width: 300px;" type="text" name="phone" required="" value="{{$cv->phone}}"></span><br />
+          Email:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input style="width: 300px;" type="text" name="email" required="" value="{{$cv->email}}"><br />
+          Giới tính:&nbsp;&nbsp;&nbsp; <span class="gender"><input style="width: 300px;" type="text" name="gender" required="" value="{{$cv->gender}}"></span><br>
+          Ngày sinh:&nbsp; <span class="date"><input style="width: 300px;" type="text" name="birthday" required="" value="{{$cv->birthday}}"></span>
 
-      </p>
-    </div>
+        </p>
+      </div>
 
-    <div id="objective">
-      <p>
-        {{$cv->information}}
-      </p>
+      <div id="objective">
+        <p>
+          {{$cv->information}}
+        </p>
 
-    </div>
+      </div>
 
-    <div class="clear"></div>
+      <div class="clear"></div>
 
-    <dl>
-      <dd class="clear"></dd>
+      <dl>
+        <dd class="clear"></dd>
 
-      <dt style="margin-right: 50px;">Học vấn</dt>
+        <dt style="margin-right: 50px;">Học vấn</dt>
 
 
-      <p><strong>Trình độ</strong><br /><input style="width: 500px;" type="text" name="education" required="" value="{{$cv->education}}"></p></p> </p>
+        <p><strong>Trình độ</strong><br /><input style="width: 500px;" type="text" name="education" required="" value="{{$cv->education}}"></p></p> </p>
 
-      <dd class="clear"></dd>
+        <dd class="clear"></dd>
 
-      <dt style="margin-right: 50px;">Kĩ năng</dt>
+        <dt style="margin-right: 50px;">Kĩ năng</dt>
 
-      <p>      <input style="width: 500px;" type="text" name="skill" required="" value="{{$cv->skill}}"></p></p>
+        <p>      <input style="width: 500px;" type="text" name="skill" required="" value="{{$cv->skill}}"></p></p>
 
-      <dd class="clear"></dd>
+        <dd class="clear"></dd>
 
-      <dt style="margin-right: 50px;">Vị trí muốn ứng tuyển</dt>
+        <dt style="margin-right: 50px;">Vị trí muốn ứng tuyển</dt>
 
-      <p><input style="width: 500px;" type="text" name="job_position" required="" value="{{$cv->job_position}}"></p></p>
+        {{-- <p><input style="width: 500px;" type="text" name="job_position" required="" value="{{$cv->job_position}}"></p></p> --}}
+        <div class="form-group">
+          {{-- <label>Khóa học</label> --}}
+          <select class="form-control" name="job_position" id="job_position" style="width: 500px;">
+            <option></option>
+            @foreach($categoryshare as $ct)
+            
+            <option 
+            @if($cv->job_position == $ct->title)
+            {{'selected'}} 
+            @endif 
+            value="{{$ct->title}}">{{$ct->title}}
+          </option>
+          @endforeach
+        </select>
+      </div>
 
 
       <dd class="clear"></dd>
@@ -127,8 +142,8 @@
 
     <div class="clear"></div>
     <input type="submit" name="" value="Cập nhập hồ sơ" style="background-color: #E61B1B; color: white; padding:10px; width: 100%;font-size: 24px;" >
-</form>
-  </div>
+  </form>
+</div>
 
 </body>
 

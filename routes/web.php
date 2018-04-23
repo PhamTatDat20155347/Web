@@ -17,6 +17,7 @@ Route::get('/', function () {
 
 // trang chủ
 Route::get('trangchu','PagesController@getTrangchu');
+
 Route::get('gioithieu','PagesController@gioithieu');
 Route::get('lienhe','PagesController@lienhe');
 // đăng nhập
@@ -31,6 +32,7 @@ Route::get('tatcavieclam','PagesController@tatcavieclam');
 
 Route::get('dangxuat','PagesController@dangxuat');
 
+Route::post('timkiem','PagesController@timkiem');
 //dang ký
 Route::get('dangky','PagesController@getdangky');
 Route::post('dangky','PagesController@postdangky');
@@ -44,6 +46,9 @@ Route::post('hosocanhan','PagesController@postHosocanhan');
 Route::get('hosoxinviec','PagesController@getHosoxinviec');
 Route::post('hosoxinviec','PagesController@postHosoxinviec');
 
+// kết quả của việc đăng ký xét tuyển
+Route::get('ketqua/{id}','PagesController@ketqua');
+
 Route::get('test','RecruitersController@getTest');
 
 // quản lí trang admin
@@ -55,6 +60,7 @@ Route::get('admin/logout','UserController@getDangXuatAdmin');
 
 // tạo route cho admin
 Route::group(['prefix'=>'admin','middleware'=>'adminLogin'],function(){
+	Route::get('droadboad','HomeController@charts');
 	Route::group(['prefix'=>'user'],function(){
 		Route::get('danhsach','UserController@getdanhsach');
 		Route::get('sua/{id}','UserController@getSua');
@@ -123,8 +129,10 @@ Route::group(['prefix'=>'nhatuyendung'],function(){
 
 	Route::get('danhsachcv','RecruimentController@danhsachcv');
 
-	Route::get('xemcv/{id}','RecruimentController@xemcv');
-	Route::get('chapnhancv/{iduser}/{idcv}','RecruimentController@chapnhancv');
+	Route::get('xemcv/{cv_id}/{id}','RecruimentController@xemcv');
+	Route::get('chapnhancv/{id}/{idNTD}/{idcv}','RecruimentController@chapnhancv');
 //tìm kiếm
 	Route::post('timkiem','RecruitersController@timkiem');
 });
+
+Route::post('/notification/get','RecruimentController@get');

@@ -42,7 +42,7 @@
                                         <img width="100px"  src="upload/post/{{$post->Hinh}}">
                                     </td>
                                     <td>{{$post->category->title}}</td>
-                                    <td class="center"><i class="fa fa-trash-o  fa-fw"></i><a href="admin/post/xoa/{{$post->id}}"> Delete</a></td>
+                                    <td class="center"><i class="fa fa-trash-o  fa-fw"></i><a onclick="return confirm('Are you sure you want to delete this item?');" href="admin/post/xoa/{{$post->id}}"> Delete</a></td>
                                     <td class="center"><i class="fa fa-pencil fa-fw"></i> <a href="admin/post/sua/{{$post->id}}">Edit</a></td>
                                 </tr>
                             @endforeach

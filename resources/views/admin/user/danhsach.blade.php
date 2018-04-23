@@ -34,7 +34,7 @@
                                 <td>{{$u->fullname}}</td>
                                 <td>{{$u->email}}</td>
                                 <td>{{$u->quyen}}</td>
-                                <td class="center"><i class="fa fa-trash-o  fa-fw"></i><a onclick="xoa()" href="admin/user/xoa/{{$u->id}}"> Delete</a></td>
+                                <td class="center"><i class="fa fa-trash-o  fa-fw"></i><a onclick="return confirm('Are you sure you want to delete this item?');" href="admin/user/xoa/{{$u->id}}"> Delete</a></td>
                                 <td class="center"><i class="fa fa-pencil fa-fw"></i> <a  href="admin/user/sua/{{$u->id}}">Edit</a></td>
                             </tr>
                             @endforeach

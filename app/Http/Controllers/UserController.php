@@ -60,8 +60,15 @@ class UserController extends Controller
 		$user->password = bcrypt($request->password);
 		$user->fullname = $request->fullname;
 		$user->quyen = $request->quyen;
-
 		$user->save();
+		if($user->quyen==0){
+			$cv= new Cv;
+			$cv->users_id=$user->id;
+			$cv->fullname=$user->fullname;
+			$cv->email = $user->email;
+			$cv->save();
+		}
+		
 		$request->session()->flash('thongbao', 'Bạn đã thêm thành công!');
 		return redirect('admin/user/them');
 	}
@@ -151,7 +158,7 @@ class UserController extends Controller
 		$data = ['email'=>$request->email,'password'=>$request->password,'quyen'=>2];
 		// kiểm tra đăng nhập
 		if(Auth::attempt($data)){
-			return redirect('admin/user/danhsach');
+			return redirect('admin/droadboad');
 		}else{
 			return view('admin.dangnhap');
 		}

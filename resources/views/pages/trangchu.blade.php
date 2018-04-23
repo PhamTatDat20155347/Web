@@ -86,7 +86,7 @@
           </div>
           <div class="job-list-content" style="display: inline-block; margin-left: 20px; width: 850px;">
             <h4><a href="job-details.html">{{$post1->title}}</a><span class="full-time">Full-Time</span></h4>
-            <p>{{$post1->content}}</p>
+            <p>{{$post1->keywork}}</p>
             <div class="job-tag">
               <div class="pull-left">
                 <div class="meta-tag">
@@ -108,7 +108,11 @@
     </div>
     @endforeach
     @else
+    @if(Auth::user()->cv->job_positon=='')
+    <h2 class="section-title">Việc Làm Tốt Nhất</h2>
+    @else
     <h2 class="section-title">Việc Làm Gợi Ý</h2>
+    @endif
     @foreach($post as $post1)
     <?php $i++; ?>
     <div class="row" style="margin-left: 10px; ">
@@ -119,7 +123,7 @@
           </div>
           <div class="job-list-content" style="display: inline-block; margin-left: 20px; width: 850px;">
             <h4><a href="job-details.html">{{$post1->title}}</a><span class="full-time">Full-Time</span></h4>
-            <p>{{$post1->content}}</p>
+            <p>{{$post1->keywork}}</p>
             <div class="job-tag">
               <div class="pull-left">
                 <div class="meta-tag">

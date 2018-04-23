@@ -29,7 +29,7 @@
                                 <tr class="odd gradeX" align="center">
                                     <td>{{$n->id}}</td>
                                     <td>{{$n->title}}</td>
-                                    <td class="center"><i class="fa fa-trash-o  fa-fw"></i><a href="admin/category/xoa/{{$n->id}}"> Delete</a></td>
+                                    <td class="center"><i class="fa fa-trash-o  fa-fw"></i><a onclick="return confirm('Are you sure you want to delete this item?');" href="admin/category/xoa/{{$n->id}}"> Delete</a></td>
                                     <td class="center"><i class="fa fa-pencil fa-fw"></i> <a href="admin/category/sua/{{$n->id}}">Edit</a></td>
                                 </tr>
                                 @endforeach

@@ -52,18 +52,18 @@
                         <label>Tiêu đề</label>
                         <input required="" class="form-control" name="title" placeholder="Nhập tiêu đề" />
                     </div>
-                    <div class="form-group">
+{{--                     <div class="form-group">
                         <label>Ngành</label>
                         <input required="" class="form-control" name="description" placeholder="Ngành" />
-                    </div>
+                    </div> --}}
                     <div class="form-group">
                         <label>Nội dung</label>
                         <textarea required="" name="content" id="demo" class="form-control ckeditor" rows="3"></textarea>
                     </div>
-                    <div class="form-group">
+{{--                     <div class="form-group">
                         <label>Từ khóa</label>
                         <input required="" class="form-control" name="keywork" placeholder="keywork" />
-                    </div>
+                    </div> --}}
                     <div class="form-group">
                         <label>Hình ảnh</label>
                         <input type="file" name="Hinh" class="form-control">

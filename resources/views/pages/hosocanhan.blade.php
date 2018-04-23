@@ -1,7 +1,7 @@
     @extends('layout.index1')
     @section('content')
     <!-- Page Content -->
-    <div class="container" style="color: #070707;">
+   {{--  <div class="container" style="color: #070707;"> --}}
 
         <!-- slider -->
         <div class="row carousel-holder">
@@ -9,7 +9,7 @@
             </div>
             <div class="col-md-8">
                 <div class="panel panel-default">
-                    <div class="panel-heading"><h3 align="center">Thông tin cá nhân</h3></div>
+                    <div class="panel-heading"><h2 align="center">Thông tin cá nhân</h2></div>
                     <div class="panel-body">
                         @if(count($errors)>0)
                         <div class="alert alert-danger">
@@ -28,7 +28,7 @@
                             {{session('loi')}}
                         </div>
                         @endif
-                        <form action="hosocanhan" method="post">
+                        <form action="hosocanhan" method="post" style="color: black;">
                             <input type="hidden" name="_token" value="{{csrf_token()}}">
                             <div>
                                 <label>Tên đăng nhập</label>

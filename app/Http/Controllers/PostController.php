@@ -35,12 +35,14 @@ class PostController extends Controller
 
 
 			]);
+		$cty = User::find($request->user_id);
+		$key =Category::find($request->category_id);
 		$post->user_id = $request->user_id;
 		$post->category_id = $request->category_id;
 		$post->title = $request->title;
-		$post->description = $request->description;
+		$post->description = $cty->congty;
 		$post->content = $request->content;
-		$post->keywork = $request->keywork;
+		$post->keywork = $key->title;
 
 		if($request->hasFile('Hinh')){
 			$file = $request ->file('Hinh');
@@ -82,13 +84,17 @@ class PostController extends Controller
 				'category_id.required' =>'Bạn chưa chọn ngành'
 
 			]);
+		$cty = User::find($request->user_id);
+		$key =Category::find($request->category_id);
 		$post = new Post;
 		$post->user_id = $request->user_id;
 		$post->category_id = $request->category_id;
 		$post->title = $request->title;
-		$post->description = $request->description;
+		$post->description = $cty->congty;
 		$post->content = $request->content;
-		$post->keywork = $request->keywork;
+		$post->thoigian="FULLTIME";
+		$post->sogio="50h";
+		$post->keywork = $key->title;
 
 		if($request->hasFile('Hinh')){
 			$file = $request ->file('Hinh');

@@ -7,11 +7,14 @@ use App\User;
 use App\Cv;
 use App\Post;
 use App\Recruitment;
+use App\Category;
 use Illuminate\Support\Facades\Auth; // phải có lớp này mới có thể sử dụng để đăng nhập
 class PagesController extends Controller
 {
     //
 	function __construct(){
+		$categoryshare = Category::all();
+		view()->share('categoryshare',$categoryshare);
 		$cv = Cv::all();
 		$user = User::all();
 		view()->share('cv',$cv);
@@ -23,8 +26,8 @@ class PagesController extends Controller
 
 	public function baidangcongty($id){
 
-			$post = Post::where('user_id','=',$id)->paginate(5);
-			return view('pages.baidangcongty',['post'=>$post]);
+		$post = Post::where('user_id','=',$id)->paginate(5);
+		return view('pages.baidangcongty',['post'=>$post]);
 	}
 
 	public function getTrangchu(){
@@ -96,14 +99,45 @@ class PagesController extends Controller
 				'password.min' => 'Password không được nhỏ hơn 3 kí tự',
 				'password.max' =>'Password không được lớn hơn 32 kí tự'
 			]);
-		$data = ['email'=>$request->email,'password'=>$request->password,'quyen'=>0];
-        // kiểm tra đăng nhập
-		if(Auth::attempt($data)){
-			return redirect('trangchu');
+		$user = User::where('email','=',$request->email)->take(1)->get();
+		$user_quyen= $user[0]['quyen'];
+		if($user_quyen==0){
+			$data = ['email'=>$request->email,'password'=>$request->password,'quyen'=>0];
+			if(Auth::attempt($data)){
+				return redirect('trangchu');
+			}else{
+				$request->session()->flash('loi', 'Đăng nhập thất bại');
+				return redirect('dangnhap');
+			}
+		}else if($user_quyen==1){
+			$data = ['email'=>$request->email,'password'=>$request->password,'quyen'=>1];
+			if(Auth::attempt($data)){
+				return redirect('nhatuyendung/trangchu');
+			}else{
+				$request->session()->flash('loi', 'Đăng nhập thất bại');
+				return redirect('dangnhap');
+			}
+		}else if($user_quyen==2){
+			$data = ['email'=>$request->email,'password'=>$request->password,'quyen'=>2];
+			if(Auth::attempt($data)){
+				
+				return redirect('admin/droadboad');
+			}else{
+				$request->session()->flash('loi', 'Đăng nhập thất bại');
+				return redirect('dangnhap');
+			}
 		}else{
 			$request->session()->flash('loi', 'Đăng nhập thất bại');
 			return redirect('dangnhap');
 		}
+		// $data = ['email'=>$request->email,'password'=>$request->password,'quyen'=>0];
+  //       // kiểm tra đăng nhập
+		// if(Auth::attempt($data)){
+		// 	return redirect('trangchu');
+		// }else{
+		// 	$request->session()->flash('loi', 'Đăng nhập thất bại');
+		// 	return redirect('dangnhap');
+		// }
 	}
 
 	public function dangxuat(){
@@ -118,6 +152,7 @@ class PagesController extends Controller
 		return view('pages.dangky');
 	}
 	public function postdangky(Request $request){
+		$post =Category::all();
 		$this->validate($request,
 			[
 				'username' => 'required|min:3',
@@ -159,7 +194,7 @@ class PagesController extends Controller
 		$data = ['email'=>$request->email,'password'=>$request->password];
         // kiểm tra đăng nhập
 		Auth::attempt($data);
-		return view('pages.taohoso',['userid'=>$userid]);
+		return view('pages.taohoso',['userid'=>$userid,'post'=>$post]);
 	}
 	public function posttaohoso(Request $request){
 
@@ -300,6 +335,9 @@ class PagesController extends Controller
 		$recruitment->cv_id=$cv_id;
 		$recruitment->post_id=$post_id;
 		$recruitment->user = $p->user_id;
+		$recruitment->HTNguoiUngTuyen= $cv->fullname;
+		$recruitment->TTNUT ="";
+		$recruitment->trangthai="chờ";
 
 		$recruitment->save();
 		$request->session()->flash('thongbao', 'Bạn đã nộp đơn thành công. Vui lòng đợi thông báo từ nhà tuyển dụng!');
@@ -309,4 +347,22 @@ class PagesController extends Controller
 		$post = Post::paginate(5);
 		return  view('pages.tatcavieclam',['post'=>$post]);
 	}
+	public function timkiem(Request $request){
+		$tukhoa = $request->timkiem;
+		 $post2 =Post::all();
+		// if($post1 = User::where('diachi','like','%tukhoa%')->take(30)->paginate(5)){
+		// 	return view('pages.timkiem',['post1'=>$post1,'tukhoa'=>$tukhoa]);
+		// }
+		$post1 = Post::where('title','like',"%$tukhoa%")->orWhere('description','like',"%$tukhoa%")->orWhere('keywork','like',"%$tukhoa%")->take(30)->paginate(5);
+		return view('pages.timkiem',['post1'=>$post1,'tukhoa'=>$tukhoa]);
+	}
+
+	public function ketqua($id){
+		$rec = Recruitment::find($id);
+		$rec->TTNUT ="Xem";
+		$rec->save();
+		$rec = Recruitment::find($id);
+		return view('pages.ketqua',['rec'=>$rec]);
+	}
+
 }

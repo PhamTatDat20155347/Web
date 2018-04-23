@@ -57,11 +57,11 @@
                 @endforeach
             </div>
             @endif
-            @if(session('thongbao'))
+{{--             @if(session('thongbao'))
             <div class="alert alert-success">
                 {{session('thongbao')}}
             </div>
-            @endif
+            @endif --}}
             @if(session('loi'))
             <div class="alert alert-danger" style="">
                <h2 align="center"> {{session('loi')}}</h2>

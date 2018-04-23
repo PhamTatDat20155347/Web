@@ -125,7 +125,7 @@ dd.clear { float: none; margin: 0; height: 15px; }
                 </div>
 
             </div>
-                    <a href="nhatuyendung/chapnhancv/{{$cv->users_id}}/{{$cv->id}}"><input type="submit" value="Chấp nhận" style="width: 30%; font-size: 30px; background-color: #3720C6; padding: 5px; color: white;"></a>
+                    <a href="nhatuyendung/chapnhancv/{{$re->id}}/{{$re->user}}/{{$re->cv_id}}"><input type="submit" value="Chấp nhận" style="width: 30%; font-size: 30px; background-color: #3720C6; padding: 5px; color: white; margin-bottom: 20px;"></a>
         </div> 
 
 
